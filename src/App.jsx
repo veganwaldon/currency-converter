@@ -1,14 +1,10 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-
+import Converter from "../features/Converter/Converter"
 
 function App() {
   
   return (
     <>
-      <div>
-       </div>
+      <Converter/>
     </>
   )
 }
