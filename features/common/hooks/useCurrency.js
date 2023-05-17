@@ -10,12 +10,13 @@ export const useCurrency = () => {
     const [ratesData, symbolsData] = useQueries({
         queries: [
         {
-        queryKey: ["rates", currencyOne],
-        queryFn: () => fetchRates(currencyOne),
-        staleTime: Infinity,
-        select: ({rates, date, timestamp}) => {
+            queryKey: ["rates", currencyOne],
+            queryFn: () => fetchRates(currencyOne),
+            staleTime: Infinity,
+            select: ({rates, date, timestamp}) => {
             return {rates, date, timestamp};
-        }
+            },
+            keepPreviousData: true
         },
         {
             queryKey: ["symbols"],
@@ -29,23 +30,28 @@ export const useCurrency = () => {
 const isLoading = [ratesData, symbolsData].some((query) => query.isLoading);
 const isError = [ratesData, symbolsData].some((query) => query.isError);
 
-const convertedAmount = ratesData.data?.rates[currencyTwo] * amount.toFixed(2);
+const convertedAmount = (ratesData.data?.rates[currencyTwo]*amount).toFixed(2);
 
-const currencyList = symbolsData.data ? Object.keys(symbolsData.data) : [];
+const date = new Date(ratesData.data?.date).toLocaleDateString();
+const time = new Date(ratesData.data?.timestamp).toLocaleTimeString("en-us");
+
+const currencyList = symbolsData.data ? Object.keys(symbolsData.data) : {};
 
 return { 
         isLoading,
         isError,
         amount, 
         setAmount,
-        currencyOne, 
+        currencyOne,
         setCurrencyOne,
         currencyTwo, 
         setCurrencyTwo,
         ratesData, 
         symbolsData, 
         currencyList,
-        convertedAmount
+        convertedAmount,
+        date,
+        time
     };
 
 };

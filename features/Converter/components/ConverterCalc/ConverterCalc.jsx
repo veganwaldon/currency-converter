@@ -1,13 +1,13 @@
 import {Flex, Select} from '@chakra-ui/react'
 
+
+
 const ConverterCalc = ({
-    symbol, 
-    currencyList, 
-    onCurrencyChange, 
-    currency 
+  symbol, currency, currencyList, onCurrencyChange
 }) => {
   return (
     <Flex gap="1rem" shadow="md" padding="1rem" borderRadius="lg">
+   
         <Select 
         variant='unstyled' 
         size='md' 
